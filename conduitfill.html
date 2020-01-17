@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Conduit Fill</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <h1>Conduit Fill</h1><br>
+   <div>
+		<form method="POST" action="">
+			{{ cf_form.hidden_tag() }}
+			<fieldset>
+				<legend>Voltage Drop Form</legend>
+				<div>
+					{{ cf_form.size.label(class="form-control-label") }}
+					{{ cf_form.size(class="form-control form-control-lg") }}
+				</div>
+                <div>
+					{{ cf_form.ground.label(class="form-control-label") }}
+					{{ cf_form.ground(class="form-control form-control-lg") }}
+				</div>
+                <div>
+					{{ cf_form.number.label(class="form-control-label") }}
+					{{ cf_form.number(class="form-control form-control-lg") }}
+				</div>
+				<div>
+					{{ cf_form.insulation.label(class="form-control-label") }}
+					{{ cf_form.insulation(class="form-control form-control-lg") }}
+				</div>
+				<div>
+					{{ cf_form.conduit.label(class="form-control-label") }}
+					{{ cf_form.conduit(class="form-control form-control-lg") }}
+				</div>
+				<div>
+					{{ cf_form.submit(class="form-control form-control-lg") }}
+				</div>
+			</fieldset>
+		</form>
+	   <div>
+		   {% block cfcontent %}
+		   		Size: {{ c_fill }}
+		   {% endblock cfcontent %}
+	   </div>
+	</div>
+	<div>
+		<small>
+			<a href="{{ url_for('index') }}">Voltage Page</a>
+		</small>
+	</div>
+</body>
+</html>
