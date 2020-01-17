@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Wire Size</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<nav>
+		<a href="{{ url_for('index') }}">Voltage Drop Page</a>
+		<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a>
+		<a href="{{ url_for('wiresize') }}">Wire Size Page</a>
+	</nav>
+</head>
+<body>
+    <h1>Wire Size</h1><br>
+   <div>
+		<form method="POST" action="">
+			{{ ws_form.hidden_tag() }}
+			<fieldset>
+				<legend>Voltage Drop Form</legend>
+				<div>
+					{{ ws_form.current.label(class="form-control-label") }}
+					{{ ws_form.current(class="form-control form-control-lg") }}
+				</div>
+                <div>
+					{{ ws_form.number.label(class="form-control-label") }}
+					{{ ws_form.number(class="form-control form-control-lg") }}
+				</div>
+                <div>
+					{{ ws_form.insulation.label(class="form-control-label") }}
+					{{ ws_form.insulation(class="form-control form-control-lg") }}
+				</div>
+				<div>
+					{{ ws_form.temperature.label(class="form-control-label") }}
+					{{ ws_form.temperature(class="form-control form-control-lg") }}
+				</div>
+				<div>
+					{{ ws_form.continuous.label(class="form-control-label") }}
+					{{ ws_form.continuous(class="form-control form-control-lg") }}
+				</div>
+				<div>
+					{{ ws_form.submit(class="form-control form-control-lg") }}
+				</div>
+			</fieldset>
+		</form>
+	   <div>
+		   {% block cfcontent %}
+		   		Size: {{ w_size }}
+		   {% endblock cfcontent %}
+	   </div>
+	</div>
+</body>
+</html>
