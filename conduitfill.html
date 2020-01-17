@@ -4,6 +4,11 @@
 	<title>Conduit Fill</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<nav>
+		<a href="{{ url_for('index') }}">Voltage Drop Page</a>
+		<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a>
+		<a href="{{ url_for('wiresize') }}">Wire Size Page</a>
+	</nav>
 </head>
 <body>
     <h1>Conduit Fill</h1><br>
@@ -42,11 +47,6 @@
 		   		Size: {{ c_fill }}
 		   {% endblock cfcontent %}
 	   </div>
-	</div>
-	<div>
-		<small>
-			<a href="{{ url_for('index') }}">Voltage Page</a>
-		</small>
 	</div>
 </body>
 </html>
