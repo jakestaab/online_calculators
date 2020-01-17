@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, url_for, redirect
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, RadioField, SelectField, IntegerField
-from nec_lib import NECTables as NEC
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '987kjhgh(*Lz4d09wfh'
@@ -10,43 +10,39 @@ app.config['SECRET_KEY'] = '987kjhgh(*Lz4d09wfh'
 class VD_Form(FlaskForm):
     material = RadioField('Material', choices=[(12.9, "CU"), (21.2, "AL")])
     phase = RadioField('Phase', choices=[(2, "1"), (1.732, "3")])
-    size = SelectField('Conductor Size', choices=[(10,10),(8,8),(6,6)])
-    length = IntegerField('length')
-    current = IntegerField('current')
-    voltage = IntegerField('voltage')
-    submit = SubmitField("Calculate VD")
+    size = SelectField('Conductor Size', choices=[(10,10), (8,8), (6,6)])
+    length = IntegerField('Length')
+    current = IntegerField('Current')
+    voltage = IntegerField('Voltage')
+    submit = SubmitField('Calculate VD')
 
 
-def get_voltage_drop(material, phase, size, length, current, voltage):
-    form = VD_Form()
-    if form.is_submitted():
-        mtrl = float(request.form.get(material))
-        phs = float(request.form.get(phase))
-        sz = str(request.form.get(size))
-        lngth = int(request.form.get(length))
-        crnt = int(request.form.get(current))
-        vltg = int(request.form.get(voltage))
-
-        numerator = (phs * mtrl * lngth * crnt)
-        denominator = NEC.awg_to_circmils[sz]
-        resulting_voltage = vltg - (numerator / denominator)
-        percentage = resulting_voltage / vltg
-        final = round(((1 - percentage) * 100), 3)
-
-        return final
-    else:
-        return 0
+class CF_Form(FlaskForm):
+    size = SelectField('Conductor Size', choices=[('10','10'),('8','8'),('6','6')])
+    number = IntegerField('No. of Conductors')
+    insulation = SelectField('Ins. Type', choices=[('PV','PV'),('THHN','THHN')])
+    ground = SelectField('Ground Size', choices=[('10','10'),('8','8'),('6','6')])
+    conduit = SelectField('Conduit Type', choices=[('EMT','EMT'),('PVC','PVC')])
+    submit = SubmitField('Calculate Size')
 
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/index", methods=['GET', 'POST'])
-def voltage_drop():
-    form = VD_Form()
+def index():
+    vd_form = VD_Form()
     vd_percent = get_voltage_drop('material', 'phase', 'size', 'length', 'current', 'voltage')
-    return render_template('index.html', form=form, vd=vd_percent)
+    return render_template('index.html', vd_form=vd_form, vd=vd_percent)
+
+@app.route("/conduitfill", methods=['GET', 'POST'])
+def conduitfill():
+    cf_form = CF_Form()
+    c_fill = get_conduit_size('size', 'number', 'insulation', 'ground', 'conduit')
+    return render_template('conduitfill.html', cf_form=cf_form, c_fill=c_fill)
 
 
 
+from calculators import get_voltage_drop
+from calculators import get_conduit_size
 
 if __name__ == '__main__':
     app.run(debug=True)
