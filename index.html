@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Practice App</title>
+	<title>Voltage Drop</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -9,43 +9,48 @@
 	<h1>Voltage Drop</h1><br>
    <div>
 		<form method="POST" action="">
-			{{ form.hidden_tag() }}
+			{{ vd_form.hidden_tag() }}
 			<fieldset>
 				<legend>Voltage Drop Form</legend>
 				<div>
-					{{ form.material.label(class="form-control-label") }}
-					{{ form.material(class="form-control form-control-lg") }}
+					{{ vd_form.material.label(class="form-control-label") }}
+					{{ vd_form.material(class="form-control form-control-lg") }}
 				</div>
 				<div>
-					{{ form.phase.label(class="form-control-label") }}
-					{{ form.phase(class="form-control form-control-lg") }}
+					{{ vd_form.phase.label(class="form-control-label") }}
+					{{ vd_form.phase(class="form-control form-control-lg") }}
 				</div>
 				<div>
-					{{ form.size.label(class="form-control-label") }}
-					{{ form.size(class="form-control form-control-lg") }}
+					{{ vd_form.size.label(class="form-control-label") }}
+					{{ vd_form.size(class="form-control form-control-lg") }}
 				</div>
 				<div>
-					{{ form.length.label(class="form-control-label") }}
-					{{ form.length(class="form-control form-control-lg") }}
+					{{ vd_form.length.label(class="form-control-label") }}
+					{{ vd_form.length(class="form-control form-control-lg") }}
 				</div>
 				<div>
-					{{ form.current.label(class="form-control-label") }}
-					{{ form.current(class="form-control form-control-lg") }}
+					{{ vd_form.current.label(class="form-control-label") }}
+					{{ vd_form.current(class="form-control form-control-lg") }}
 				</div>
 				<div>
-					{{ form.voltage.label(class="form-control-label") }}
-					{{ form.voltage(class="form-control form-control-lg") }}
+					{{ vd_form.voltage.label(class="form-control-label") }}
+					{{ vd_form.voltage(class="form-control form-control-lg") }}
 				</div>
 				<div>
-					{{ form.submit(class="form-control form-control-lg") }}
+					{{ vd_form.submit(class="form-control form-control-lg") }}
 				</div>
 			</fieldset>
 		</form>
 	   <div>
-		   {% block content %}
+		   {% block vdcontent %}
 		   		Voltage Drop: {{ vd }}%
-		   {% endblock content %}
+		   {% endblock vdcontent %}
 	   </div>
+	</div>
+	<div>
+		<small>
+			<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a>
+		</small>
 	</div>
 </body>
 </html>
