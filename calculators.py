@@ -59,13 +59,17 @@ def get_conduit_size(size, number, insulation, ground, conduit):
                 return 0
 
 
-        return total_area
-    else:
+def get_wire_size(current, number, insulation, temperature, continuous):
+    form = WS_Form()
+    if form.is_submitted():
+        crnt = int(request.form.get(current))
+        nmbr = request.form.get(number)
+        ins = str(request.form.get(insulation))
+        tmp = int(request.form.get(temperature))
+        cntns = str(request.form.get(continuous))
+
         return 0
 
 
 
-
-
-
-from vd_online import VD_Form, CF_Form
+from vd import VD_Form, CF_Form, WS_Form
