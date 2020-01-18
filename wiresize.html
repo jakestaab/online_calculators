@@ -5,9 +5,9 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<nav>
-		<a href="{{ url_for('index') }}">Voltage Drop Page</a>
-		<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a>
-		<a href="{{ url_for('wiresize') }}">Wire Size Page</a>
+		<a href="{{ url_for('index') }}">Voltage Drop Page</a> |
+		<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a> |
+		<a href="{{ url_for('wiresize') }}">Wire Size Page</a> |
 	</nav>
 </head>
 <body>
@@ -44,7 +44,8 @@
 		</form>
 	   <div>
 		   {% block cfcontent %}
-		   		Size: {{ w_size }}
+		   		Copper Size Needed: {{ w_size[0] }}<br>
+		   		Aluminum Size Needed: {{ w_size[1] }}<br>
 		   {% endblock cfcontent %}
 	   </div>
 	</div>
