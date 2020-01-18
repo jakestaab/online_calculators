@@ -1,6 +1,7 @@
 from flask import request
 from nec_lib import NECTables as NEC
 from nec_lib import ConduitFill as CF
+from nec_lib import WireDerate as WD
 
 def get_voltage_drop(material, phase, size, length, current, voltage):
     form = VD_Form()
@@ -35,7 +36,6 @@ def get_conduit_size(size, number, insulation, ground, conduit):
         if ins == 'PV':
             ins_area = CF.pv_awg_to_area[sz]
             grnd_area = CF.pv_awg_to_area[grnd]
-
         else:
             ins_area = CF.thhn_awg_to_area[sz]
             grnd_area = CF.thhn_awg_to_area[grnd]
@@ -63,13 +63,46 @@ def get_wire_size(current, number, insulation, temperature, continuous):
     form = WS_Form()
     if form.is_submitted():
         crnt = int(request.form.get(current))
-        nmbr = request.form.get(number)
+        nmbr = int(request.form.get(number))
         ins = str(request.form.get(insulation))
         tmp = int(request.form.get(temperature))
-        cntns = str(request.form.get(continuous))
+        cntns = float(request.form.get(continuous))
 
-        return 0
+        fill_factor = 1
+        temp_factor = 1
+        copper_tuple = (0, 0)
+        al_tuple = (0, 0)
 
+        for x in WD.fill_lst:
+            if nmbr > x:
+                continue
+            elif nmbr < x:
+                fill_factor = WD.fill_dict[x]
+                break
 
+        for y in WD.temp_lst:
+            if tmp > y:
+                continue
+            elif tmp < y:
+                temp_factor = WD.temp_dict_90[y]
+                break
+
+        required_ampacity = (crnt / fill_factor / temp_factor) * cntns
+
+        for z in WD.cu_ampacity_90:
+            if required_ampacity > z:
+                continue
+            elif required_ampacity < z:
+                copper_tuple = (WD.cu_ampacity_to_awg_90[z], z)
+                break
+
+        for z in WD.al_ampacity_90:
+            if required_ampacity > z:
+                continue
+            elif required_ampacity < z:
+                al_tuple = (WD.al_ampacity_to_awg_90[z], z)
+                break
+
+        return (copper_tuple[0], al_tuple[0])
 
 from vd import VD_Form, CF_Form, WS_Form
