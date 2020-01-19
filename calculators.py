@@ -54,7 +54,7 @@ def get_conduit_size(size, number, insulation, ground, conduit):
                 continue
             elif (total_area / .4) < x:
                 cross_sect = (total_area / x) * 100
-                return cross_sect, dict[x]
+                return round(cross_sect, 1), dict[x]
             else:
                 return 0
 
@@ -102,7 +102,7 @@ def get_wire_size(current, number, insulation, temperature, continuous):
             elif required_ampacity < z:
                 al_tuple = (WD.al_ampacity_to_awg_90[z], z)
                 break
-
-        return (copper_tuple[0], al_tuple[0])
+        return_list = [copper_tuple[0], al_tuple[0], round(required_ampacity,2)]
+        return return_list
 
 from vd import VD_Form, CF_Form, WS_Form
