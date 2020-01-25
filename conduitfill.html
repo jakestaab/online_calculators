@@ -4,19 +4,25 @@
 	<title>Conduit Fill</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/calculators.css') }}">
+	<header>
+		<b><h1>Staab Calculators</h1></b>
+	</header>
 	<nav>
-		<a href="{{ url_for('index') }}">Voltage Drop Page</a>
-		<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a>
-		<a href="{{ url_for('wiresize') }}">Wire Size Page</a>
+		<a href="{{ url_for('index') }}">Voltage Drop Page</a> |
+		<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a> |
+		<a href="{{ url_for('wiresize') }}">Wire Size Page</a> |
 	</nav>
+	<br><br>
 </head>
 <body>
-    <h1>Conduit Fill</h1><br>
+    <h2>Conduit Fill</h2>
+	<p>Calculates fill percentage in smallest allowable conduit size per NEC.</p><br>
    <div>
 		<form method="POST" action="">
 			{{ cf_form.hidden_tag() }}
-			<fieldset>
-				<legend>Voltage Drop Form</legend>
+			<fieldset class="fieldset-auto-width">
+				<legend><b>Fill Characteristics</b></legend>
 				<div>
 					{{ cf_form.size.label(class="form-control-label") }}
 					{{ cf_form.size(class="form-control form-control-lg") }}
@@ -44,9 +50,15 @@
 		</form>
 	   <div>
 		   {% block cfcontent %}
-		   		Size: {{ c_fill }}
+		   		Total Fill: {{ c_fill[0] }}% in {{ c_fill[1] }} {{ request.form.get('conduit') }}
 		   {% endblock cfcontent %}
 	   </div>
 	</div>
 </body>
+<footer>
+	<small>
+	Staab Calculators<br>
+	Copryright &copy; 2020 Jake Staab
+	</small>
+</footer>
 </html>
