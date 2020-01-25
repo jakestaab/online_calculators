@@ -1,38 +1,8 @@
-from flask import Flask, render_template, url_for, redirect
-from flask_wtf import FlaskForm
-from wtforms import SubmitField, RadioField, SelectField, IntegerField
-
+from flask import Flask, render_template
+from forms import VD_Form, CF_Form, WS_Form
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '987kjhgh(*Lz4d09wfh'
-
-
-class VD_Form(FlaskForm):
-    material = RadioField('Material', choices=[(12.9, 'CU'), (21.2, 'AL')])
-    phase = RadioField('Phase', choices=[(2, '1'), (1.732, '3')])
-    size = SelectField('Conductor Size', choices=[(10,10), (8,8), (6,6)])
-    length = IntegerField('Length')
-    current = IntegerField('Current')
-    voltage = IntegerField('Voltage')
-    submit = SubmitField('Calculate VD')
-
-
-class CF_Form(FlaskForm):
-    size = SelectField('Conductor Size', choices=[('10','10'),('8','8'),('6','6')])
-    number = IntegerField('No. of Conductors')
-    insulation = SelectField('Ins. Type', choices=[('PV','PV'),('THHN','THHN')])
-    ground = SelectField('Ground Size', choices=[('10','10'),('8','8'),('6','6')])
-    conduit = SelectField('Conduit Type', choices=[('EMT','EMT'),('PVC','PVC')])
-    submit = SubmitField('Calculate Size')
-
-
-class WS_Form(FlaskForm):
-    current = IntegerField('Current')
-    number = IntegerField('No. of Conductors')
-    insulation = SelectField('Ins. Type', choices=[('PV', 'PV'), ('THHN', 'THHN')])
-    temperature = IntegerField('Amb. Temp. (F)')
-    continuous = RadioField('Phase', choices=[(1.25, 'Yes'), (1, 'No')])
-    submit = SubmitField('Calculate Size')
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -60,3 +30,4 @@ from calculators import get_wire_size
 
 if __name__ == '__main__':
     app.run(debug=True)
+
