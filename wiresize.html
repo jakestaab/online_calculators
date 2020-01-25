@@ -4,19 +4,25 @@
 	<title>Wire Size</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/calculators.css') }}">
+	<header>
+		<b><h1>Staab Calculators</h1></b>
+	</header>
 	<nav>
 		<a href="{{ url_for('index') }}">Voltage Drop Page</a> |
 		<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a> |
 		<a href="{{ url_for('wiresize') }}">Wire Size Page</a> |
 	</nav>
+	<br><br>
 </head>
 <body>
-    <h1>Wire Size</h1><br>
+    <h2>Wire Size</h2>
+	<p>Calculates minimum wire size required based on circuit characteristics.</p><br>
    <div>
 		<form method="POST" action="">
 			{{ ws_form.hidden_tag() }}
-			<fieldset>
-				<legend>Voltage Drop Form</legend>
+			<fieldset class="fieldset-auto-width">
+				<legend><b>Circuit Characteristics</b></legend>
 				<div>
 					{{ ws_form.current.label(class="form-control-label") }}
 					{{ ws_form.current(class="form-control form-control-lg") }}
@@ -44,10 +50,17 @@
 		</form>
 	   <div>
 		   {% block cfcontent %}
+		   		Required Ampacity: {{ w_size[2] }}A<br>
 		   		Copper Size Needed: {{ w_size[0] }}<br>
 		   		Aluminum Size Needed: {{ w_size[1] }}<br>
 		   {% endblock cfcontent %}
 	   </div>
 	</div>
 </body>
+<footer>
+	<small>
+	Staab Calculators<br>
+	Copryright &copy; 2020 Jake Staab
+	</small>
+</footer>
 </html>
