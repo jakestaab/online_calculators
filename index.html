@@ -4,22 +4,28 @@
 	<title>Voltage Drop</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/calculators.css') }}">
+	<header>
+		<b><h1>Staab Calculators</h1></b>
+	</header>
 	<nav>
-		<a href="{{ url_for('index') }}">Voltage Drop Page</a>
-		<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a>
-		<a href="{{ url_for('wiresize') }}">Wire Size Page</a>
+		<a href="{{ url_for('index') }}">Voltage Drop Page</a> |
+		<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a> |
+		<a href="{{ url_for('wiresize') }}">Wire Size Page</a> |
 	</nav>
+	<br><br>
 </head>
 <body>
-	<h1>Voltage Drop</h1><br>
-   <div>
+	<h2>Voltage Drop</h2>
+	<p>Calculates total voltage drop percentage based on circuit characteristics.</p><br>
+	<div>
 		<form method="POST" action="">
 			{{ vd_form.hidden_tag() }}
-			<fieldset>
-				<legend>Voltage Drop Form</legend>
+			<fieldset class="fieldset-auto-width">
+				<legend><b>Circuit Characteristics</b></legend>
 				<div>
 					{{ vd_form.material.label(class="form-control-label") }}
-					{{ vd_form.material(class="form-control form-control-lg") }}
+					{{ vd_form.material(required='required', class="form-control form-control-lg") }}
 				</div>
 				<div>
 					{{ vd_form.phase.label(class="form-control-label") }}
@@ -53,4 +59,10 @@
 	   </div>
 	</div>
 </body>
+<footer>
+	<small>
+	Staab Calculators<br>
+	Copryright &copy; 2020 Jake Staab
+	</small>
+</footer>
 </html>
