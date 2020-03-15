@@ -24,9 +24,17 @@ def wiresize():
     w_size = get_wire_size('current', 'number', 'insulation', 'temperature', 'continuous')
     return render_template('wiresize.html', ws_form=ws_form, w_size=w_size)
 
+@app.route("/rotationalmass", methods=['GET', 'POST'])
+def rotationalmass():
+    rm_form = RM_Form()
+    output = rotational_mass('masslbs', 'rpm', 'radiusInches')
+    return render_template('rotationalmass.html', rm_form=rm_form, output=output)
+
+
 from calculators import get_voltage_drop
 from calculators import get_conduit_size
 from calculators import get_wire_size
+from calculators import rotational_mass
 
 if __name__ == '__main__':
     app.run(debug=True)
