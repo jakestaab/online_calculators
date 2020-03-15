@@ -29,3 +29,9 @@ class WS_Form(FlaskForm):
     temperature = IntegerField('Amb. Temp. (F)')
     continuous = RadioField('Continuous Current?', choices=[(1.25, 'Yes'), (1, 'No')])
     submit = SubmitField('Calculate Size')
+
+class RM_Form(FlaskForm):
+    masslbs = IntegerField('Mass (lbs.)')
+    rpm = IntegerField('RPM')
+    radiusInches = IntegerField('Radius (in.)')
+    submit = SubmitField('Calculate')
