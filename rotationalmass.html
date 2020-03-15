@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Rotational Mass</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/calculators.css') }}">
+	<header>
+		<b><h1>Staab Calculators</h1></b>
+	</header>
+	<nav>
+		<a href="{{ url_for('index') }}">Voltage Drop Page</a> |
+		<a href="{{ url_for('conduitfill') }}">Conduit Fill Page</a> |
+		<a href="{{ url_for('wiresize') }}">Wire Size Page</a> |
+        <a href="{{ url_for('rotationalmass') }}">Rotational Mass Page</a> |
+	</nav>
+	<br><br>
+</head>
+<body>
+	<h2>Rotational Mass Calculations</h2>
+	<p>Calculates the power produced by the given rotational characteristics</p><br>
+	<div>
+		<form method="POST" action="">
+			{{ rm_form.hidden_tag() }}
+			<fieldset class="fieldset-auto-width">
+				<legend><b>Input Characteristics</b></legend>
+				<div>
+					{{ rm_form.masslbs.label(class="form-control-label") }}
+					{{ rm_form.masslbs(required='required', class="form-control form-control-lg") }}
+				</div>
+				<div>
+					{{ rm_form.rpm.label(class="form-control-label") }}
+					{{ rm_form.rpm(class="form-control form-control-lg") }}
+				</div>
+				<div>
+					{{ rm_form.radiusInches.label(class="form-control-label") }}
+					{{ rm_form.radiusInches(class="form-control form-control-lg") }}
+				</div>
+				<div>
+					{{ rm_form.submit(class="form-control form-control-lg") }}
+				</div>
+			</fieldset>
+		</form>
+	   <div>
+		   {% block rmcontent %}
+		   		Velocity in/sec: {{ output[0] }} <br>
+		   		Velocity meters/sec: {{ output[1] }} <br>
+		   		Centripetal Force: {{ output[2] }} Newtons<br>
+		   		Centrifugal Force: {{ output[3] }} <br>
+		   		Horsepower: {{ output[4] }} <br>
+		   {% endblock rmcontent %}
+	   </div>
+	</div>
+</body>
+<footer>
+	<small>
+	Staab Calculators<br>
+	Copryright &copy; 2020 Jake Staab
+	</small>
+</footer>
+</html>
