@@ -105,4 +105,28 @@ def get_wire_size(current, number, insulation, temperature, continuous):
         return_list = [copper_tuple[0], al_tuple[0], round(required_ampacity,2)]
         return return_list
 
-from vd import VD_Form, CF_Form, WS_Form
+def rotational_mass(masslbs, rpm, radius):
+    form = RM_Form()
+    if form.is_submitted():
+        mss = float(request.form.get(masslbs))
+        RPM = float(request.form.get(rpm))
+        rds_inch = float(request.form.get(radius))
+
+        mass_kg = mss * .453592
+        radius_meters = rds_inch * .0254
+
+        velocity_in_inch = (rds_inch * 3.141592653) * (RPM / 60)
+        velocity_in_meters = (radius_meters * 3.141592653) * (RPM / 60)
+
+        centripetal_force = (mass_kg * (velocity_in_meters ** 2)) / radius_meters
+        centrifugal_force = centripetal_force * .224809
+        horsepower = centripetal_force * .00134102209
+
+        output_list = [velocity_in_inch, velocity_in_meters, centripetal_force,
+                       centrifugal_force, horsepower]
+
+        return output_list
+    else:
+        return 0
+
+from vd import VD_Form, CF_Form, WS_Form, RM_Form
